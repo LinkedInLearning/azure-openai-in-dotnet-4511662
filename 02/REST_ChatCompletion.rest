@@ -1,0 +1,60 @@
+@AOAI_APIKEY = {{$dotenv AOAI_APIKEY}}
+@AOAI_ENDPOINT = {{$dotenv AOAI_ENDPOINT}}
+@CHATCOMPLETION_DEPLOYMENTNAME = {{$dotenv CHATCOMPLETION_DEPLOYMENTNAME}}
+
+# Call Wikipedia
+GET https://en.wikipedia.org/wiki/List_of_Super_Bowl_champions
+
+# Super Bowl Information from above wikipedia page
+The Super Bowl is the annual American football game that determines the champion of the National Football League (NFL). 
+The game culminates a season that begins in the previous calendar year, and is the conclusion of the NFL playoffs. 
+The winner receives the Vince Lombardi Trophy. 
+The contest is held in an American city, chosen three to four years beforehand, usually at warm-weather sites or domed stadiums.
+Since January 1971, the winner of the American Football Conference (AFC) Championship Game has faced the winner of the 
+National Football Conference  (NFC) Championship Game in the culmination of the NFL playoffs. 
+Before the 1970 merger between the American Football League (AFL) and the National Football League (NFL), 
+the two leagues met in four such contests. 
+The first two were marketed as the AFL NFL World Championship Game, but were also casually referred to as the 
+Super Bowl game during the television  broadcast. 
+Super Bowl III in January 1969 was the first such game that carried the Super Bowl moniker in official marketing; 
+the names Super Bowl and Super Bowl II were retroactively applied to the first two games. 
+A total of 20 franchises, including teams that have relocated to another city or changed their name, have won the Super Bowl.
+There are four NFL teams that have never  appeared in a Super Bowl: the Cleveland Browns, Detroit Lions, Jacksonville Jaguars, 
+and Houston Texans, though both the Browns (1950, 1954, 1955, 1964) and Lions (1935, 1952, 1953, 1957) had won NFL Championship 
+Games prior to the  creation of the Super Bowl in the 1966 season. 
+The 1972 Dolphins capped off the only perfect season in NFL history with their  victory in Super Bowl VII. 
+Only two franchises have ever won the Super Bowl while hosting at their home stadiums: the Tampa Bay Buccaneers in Super Bowl 
+LV and the Los Angeles Rams in Super Bowl LVI.
+
+# System Prompt
+Summarize the provided unstructured text in 3 easy to understand sentences. 
+The sentences need to be short and provide the most important content of the provided text.
+
+
+### Call chat completion 
+POST {{AOAI_ENDPOINT}}/openai/deployments/{{CHATCOMPLETION_DEPLOYMENTNAME}}/chat/completions?api-version=2023-03-15-preview
+Content-Type: application/json
+api-key: {{AOAI_APIKEY}}
+
+{
+    "messages": [
+        {
+            "role": "system",
+            "content": "Summarize the provided unstructured text in 3 easy to understand sentences. The sentences need to be short and provide the most important content of the provided text."
+        },
+        {
+            "role": "user",
+            "content": "The Super Bowl is the annual American football game that determines the champion of the National Football League (NFL). The game culminates a season that begins in the previous calendar year, and is the conclusion of the NFL playoffs. The winner receives the Vince Lombardi Trophy. The contest is held in an American city, chosen three to four years beforehand, usually at warm-weather sites or domed stadiums.  Since January 1971, the winner of the American Football Conference (AFC) Championship Game has faced the winner of the National Football Conference  (NFC) Championship Game in the culmination of the NFL playoffs. Before the 1970 merger between the American Football League (AFL)  and the National Football League (NFL), the two leagues met in four such contests.  The first two were marketed as the AFL–NFL World Championship Game, but were also casually referred to as the Super Bowl game during the television  broadcast. Super Bowl III in January 1969 was the first such game that carried the Super Bowl moniker in official marketing; the names  Super Bowl and Super Bowl II were retroactively applied to the first two games. A total of 20 franchises,  including teams that have relocated to another city or changed their name, have won the Super Bowl. There are four NFL teams that have never  appeared in a Super Bowl: the Cleveland Browns, Detroit Lions, Jacksonville Jaguars, and Houston Texans,  though both the Browns (1950, 1954, 1955, 1964) and Lions (1935, 1952, 1953, 1957) had won NFL Championship Games prior to the  creation of the Super Bowl in the 1966 season. The 1972 Dolphins capped off the only perfect season in NFL history with their  victory in Super Bowl VII. Only two franchises have ever won the Super Bowl while hosting at their home stadiums: the Tampa Bay Buccaneers in Super Bowl  LV and the Los Angeles Rams in Super Bowl LVI." 
+        }
+    ],
+    "temperature": 0.7,
+    "top_p":0.95
+}
+
+
+The Super Bowl is the annual American football game that determines the National Football League (NFL) champion, with the winner receiving the Vince Lombardi Trophy. 
+The game, held in an American city chosen years in advance, is the culmination of the NFL playoffs and involves the winners of the American Football Conference (AFC) and National Football Conference (NFC). 
+The Super Bowl has been won by 20 different franchises, while four teams have never appeared in the game, and only two have won while hosting at their home stadiums.
+
+
+

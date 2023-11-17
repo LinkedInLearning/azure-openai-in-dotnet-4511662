@@ -1,0 +1,5 @@
+Extract key words from the provided text. Focus on the most important words.
+Just provide main words, no need to provide all the words.
+Limit your answer to maximal 5 key words.
+
+Provided text:{{$input}}
